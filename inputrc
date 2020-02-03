@@ -1,0 +1,12 @@
+set editing-mode vi
+set vi-ins-mode-string
+set vi-cmd-mode-string "(CMD) "
+$if mode=vi
+    set show-mode-in-prompt on
+    "\e[A": history-search-backward
+    "\e[B": history-search-forward
+    j: history-search-forward
+    k: history-search-backward
+$endif
+
+set show-all-if-ambiguous on
