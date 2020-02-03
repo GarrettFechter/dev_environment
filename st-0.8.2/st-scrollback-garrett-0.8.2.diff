@@ -1,0 +1,30 @@
+--- st-0.8.2/config.h	2020-02-03 15:29:11.141882087 -0800
++++ /home/garrett/Downloads/st-0.8.2/config.h	2019-10-18 18:11:28.331189858 -0700
+@@ -5,7 +5,7 @@
+  *
+  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
+  */
+-static char *font = "Liberation Mono:pixelsize=12:antialias=true:autohint=true";
++static char *font = "Liberation Mono:pixelsize=18:antialias=true:autohint=true";
+ static int borderpx = 2;
+ 
+ /*
+@@ -156,14 +156,14 @@
+  */
+ static MouseShortcut mshortcuts[] = {
+ 	/* button               mask            string */
+-	{ Button4,              XK_NO_MOD,      "\031" },
+-	{ Button5,              XK_NO_MOD,      "\005" },
++	/*{ Button4,              XK_NO_MOD,      "\031" },
++	{ Button5,              XK_NO_MOD,      "\005" },*/
+ };
+ 
+ MouseKey mkeys[] = {
+ 	/* button               mask            function        argument */
+-	{ Button4,              ShiftMask,      kscrollup,      {.i =  1} },
+-	{ Button5,              ShiftMask,      kscrolldown,    {.i =  1} },
++	{ Button4,              XK_NO_MOD,      kscrollup,      {.i =  1} },
++	{ Button5,              XK_NO_MOD,      kscrolldown,    {.i =  1} },
+ };
+ 
+ /* Internal keyboard shortcuts. */
