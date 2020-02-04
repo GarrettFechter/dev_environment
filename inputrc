@@ -5,8 +5,14 @@ $if mode=vi
     set show-mode-in-prompt on
     "\e[A": history-search-backward
     "\e[B": history-search-forward
-    j: history-search-forward
-    k: history-search-backward
 $endif
+
+set keymap vi-command
+    "j": history-search-forward
+    "k": history-search-backward
+
+set keymap vi-insert
+    "j": self-insert
+    "k": self-insert
 
 set show-all-if-ambiguous on
