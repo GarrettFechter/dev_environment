@@ -12,8 +12,15 @@ parse_git_branch() {
     git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
 }
 
-# Set a custom prompt
-export PS1="[\u:\[$(tput sgr0)\]\[\033[38;5;10m\]\w\[$(tput sgr0)\]\[\033[38;5;15m\]\\033[38;5;196m\$("parse_git_branch")\\033[0m]\\$ \[$(tput sgr0)\]"
+# Set a custom prompt with colors :)
+BLUE="\[$(tput setaf 99)\]"
+RED="\[$(tput setaf 196)\]"
+WHITE="\[$(tput setaf 15)\]"
+PURPLE="\[$(tput setaf 201)\]"
+CYAN="\[$(tput setaf 87)\]"
+YELLOW="\[$(tput setaf 226)\]"
+
+export PS1="\u:${YELLOW}\w${CYAN}\$("parse_git_branch")${WHITE}$ "
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
@@ -21,6 +28,8 @@ export PS1="[\u:\[$(tput sgr0)\]\[\033[38;5;10m\]\w\[$(tput sgr0)\]\[\033[38;5;1
 
 alias sourceb="source ~/.bashrc"
 alias vimb="vim ~/.bashrc"
+alias sl="ls"
+alias ll="ls -lah"
 
 # cd to the directory of the file found by fzf
 cd_fzf() {
