@@ -188,5 +188,5 @@ bar {
 ### CUTOMIZATIONS ###
 
 # these are for my laptop's brightness buttons
-bindsym XF86MonBrightnessUp exec bash ~/util/increase_brightness
-bindsym XF86MonBrightnessDown exec bash ~/util/decrease_brightness
+bindsym XF86MonBrightnessUp exec xbacklight -inc 5
+bindsym XF86MonBrightnessDown exec xbacklight -dec 5
