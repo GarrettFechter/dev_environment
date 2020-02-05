@@ -186,13 +186,6 @@ bar {
 
 
 ### CUTOMIZATIONS ###
-volume master {
-        format = "♪: %volume"
-        format_muted = "♪: muted (%volume)"
-        device = "default"
-        mixer = "Master"
-        mixer_idx = 0
-}
 
 # these are for my laptop's brightness buttons
 bindsym XF86MonBrightnessUp exec bash ~/util/increase_brightness
