@@ -1,0 +1,15 @@
+#!/bin/sh
+
+cachedir="${XDG_CACHE_HOME:-"$HOME/.cache"}"
+cache="$cachedir/dmenu_run"
+
+[ ! -e "$cachedir" ] && mkdir -p "$cachedir"
+
+IFS=:
+if stest -dqr -n "$cache" $PATH; then
+	compgen -c | sort -u | tee "$cache"
+else
+	cat "$cache"
+fi
+
+#	stest -flx $PATH | sort -u | tee "$cache"

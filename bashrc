@@ -77,3 +77,21 @@ alias max_fan="echo level 7 > /proc/acpi/ibm/fan"
 alias auto_fan="echo level auto > /proc/acpi/ibm/fan"
 alias attach_vga_monitor_right="xrandr --output VGA1 --auto --right-of eDP1"
 alias rotate_vga_monitor="xrandr --output VGA1 --rotate left"
+
+# surf aliases
+
+facebook() {
+    surf www.facebook.com
+}
+export -f facebook
+
+hackernews() {
+    surf news.ycombinator.com
+}
+export -f hackernews
+
+ddg() {
+    query=$@
+    surf www.duckduckgo.com?q=${query// /+}
+}
+export -f ddg
