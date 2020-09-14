@@ -77,6 +77,8 @@ alias max_fan="echo level 7 > /proc/acpi/ibm/fan"
 alias auto_fan="echo level auto > /proc/acpi/ibm/fan"
 alias attach_vga_monitor_right="xrandr --output VGA1 --auto --right-of eDP1"
 alias rotate_vga_monitor="xrandr --output VGA1 --rotate left"
+alias mirror_vga_monitor="xrandr --output VGA1 --same-as eDP1"
+alias eDP1_output_1400_900="xrandr --output eDP1 --mode 1400x900"
 
 # surf aliases
 
@@ -95,3 +97,14 @@ ddg() {
     surf www.duckduckgo.com?q=${query// /+}
 }
 export -f ddg
+
+ff() {
+    query=$@
+    firefox www.duckduckgo.com?q=${query// /+}
+}
+export -f ff
+
+lock() {
+    slock systemctl suspend -i
+}
+export -f lock

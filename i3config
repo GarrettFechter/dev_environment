@@ -190,3 +190,8 @@ bar {
 # these are for my laptop's brightness buttons
 bindsym XF86MonBrightnessUp exec xbacklight -inc 5
 bindsym XF86MonBrightnessDown exec xbacklight -dec 5
+
+mode "passthrough" {
+    bindsym Mod1+Escape mode "default"
+}
+bindsym Mod1+Escape mode "passthrough"
