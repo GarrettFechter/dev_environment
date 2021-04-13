@@ -1,7 +1,30 @@
-execute pathogen#infect()
-
 filetype plugin indent on
-syntax on
+
+set hidden
+
+call plug#begin('~/.vim/plugged')
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+call plug#end()
+
+command! -bang -nargs=* Rg
+            \ call fzf#vim#grep(
+            \   'rg --column --line-number --no-heading --color=always '
+            \ . <q-args>, 1,
+            \   <bang>0 ? fzf#vim#with_preview('up:60%')
+            \           : fzf#vim#with_preview('right:50%:hidden', '?'),
+            \   <bang>0)
+cnoreabbrev rg Rg
+
+command! -bang -nargs=* Lrg
+            \ call fzf#vim#grep(
+            \   'rg --column --line-number --no-heading --color=always --with-filename '
+            \ . <q-args> . ' ' . expand('%'), 1,
+            \   <bang>0 ? fzf#vim#with_preview('up:60%')
+            \           : fzf#vim#with_preview('right:50%:hidden', '?'),
+            \   <bang>0)
+cnoreabbrev lrg Lrg
+
 set nocompatible
 set history=10000 " remember 10000 commands
 set tabstop=4 " num of spaces for each <Tab>
@@ -25,8 +48,8 @@ set cursorline " highlight cursor line
 " set t_ti= t_te=
 set scrolloff=5 " context to keep when going up/down
 
-syntax enable
 syntax on
+syntax enable
 set list
 set tabstop=8 softtabstop=0 expandtab shiftwidth=4 smarttab
 set listchars=tab:->,trail:~,extends:>,precedes:<
@@ -51,7 +74,7 @@ function! InsertTabWrapper()
         return "\<tab>"
     endif
 endfunction
-inoremap <expr> <tab> InsertTabWrapper()
+noremap <expr> <tab> InsertTabWrapper()
 inoremap <s-tab> <c-n>
 
 " Jump to last cursor position unless it's invalid or in an event handler
@@ -60,8 +83,8 @@ autocmd BufReadPost *
             \   exe "normal g`\"" |
             \ endif
 
-augroup remember_folds
-    autocmd!
-    autocmd BufWinLeave ?* mkview | filetype detect
-    autocmd BufWinEnter ?* silent loadview | filetype detect
-augroup END
+" augroup remember_folds
+"    autocmd!
+"    autocmd BufWinLeave ?* mkview | filetype detect
+"    autocmd BufWinEnter ?* silent loadview | filetype detect
+" augroup END
