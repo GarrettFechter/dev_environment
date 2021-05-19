@@ -36,6 +36,10 @@ alias ls="ls --color=auto"
 alias sl="ls --color=auto"
 alias ks="ls --color=auto"
 alias ll="ls -lah --color=auto"
+_vimrs() {
+    vim -p $(grep -rl .rs .)
+}
+alias vimrs="_vimrs"
 
 # cd to the directory of the file found by fzf
 cd_fzf() {
@@ -68,6 +72,8 @@ alias cdvimf="cdvim_fzf"
 # git aliases
 
 alias sgit="git status"
+alias bgit="git branch"
+alias dgit="git diff"
 
 # taken from https://coderwall.com/p/euwpig/a-better-git-log
 alias pgit="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
