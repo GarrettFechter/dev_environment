@@ -5,6 +5,8 @@ set hidden
 call plug#begin('~/.vim/plugged')
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+Plug 'prabirshrestha/vim-lsp'
+Plug 'mattn/vim-lsp-settings'
 call plug#end()
 
 command! -bang -nargs=* Rg
@@ -53,7 +55,8 @@ syntax enable
 set list
 set tabstop=8 softtabstop=0 expandtab shiftwidth=4 smarttab
 set listchars=tab:->,trail:~,extends:>,precedes:<
-colorscheme shades_of_purple
+colorscheme lucius
+set background=dark
 set tags=./tags;/
 
 " multipurpose TAB from https://github.com/garybernhardt/dotfiles/blob/master/.vimrc
@@ -83,8 +86,11 @@ autocmd BufReadPost *
             \   exe "normal g`\"" |
             \ endif
 
-" augroup remember_folds
-"    autocmd!
-"    autocmd BufWinLeave ?* mkview | filetype detect
-"    autocmd BufWinEnter ?* silent loadview | filetype detect
-" augroup END
+set foldmethod=syntax
+au BufRead * normal zR
+
+"augroup remember_folds
+"   autocmd!
+" autocmd BufWinLeave ?* mkview | filetype detect
+" autocmd BufWinEnter ?* silent loadview | filetype detect
+"augroup END
