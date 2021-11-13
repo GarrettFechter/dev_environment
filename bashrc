@@ -6,14 +6,17 @@
 #       bcc (https://github.com/iovisor/bcc)
 
 MANPATH=/usr/share/bcc/man:$MANPATH
-PATH=/usr/share/bcc/tools:$PATH
+PATH=/usr/local/opt/grep/libexec/gnubin:$PATH
 HISTSIZE=10000
 HISEFILESIZE=10000
 HISTCONTROL=erasedups
+TERM=xterm-256color
 
 parse_git_branch() {
     git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
 }
+
+alias cdgr='cd $(git rev-parse --show-toplevel)'
 
 # Set a custom prompt with colors :)
 BLUE="\[$(tput setaf 99)\]"
@@ -29,15 +32,18 @@ export PS1="\u:${YELLOW}\w${CYAN}\$("parse_git_branch")${WHITE}$ "
 
 ##### SHORTCUTS & ALIASES #####
 
+alias vim="nvim"
+alias scr="nvim ~/notes/scratch"
 alias sourceb="source ~/.bashrc"
-alias vimb="vim ~/.bashrc"
+alias vimb="nvim ~/.bashrc"
 alias catb="cat ~/.bashrc"
-alias ls="ls --color=auto"
-alias sl="ls --color=auto"
-alias ks="ls --color=auto"
-alias ll="ls -lah --color=auto"
+alias cls="clear && ls -G"
+alias ls="ls -G"
+alias sl="ls -G"
+alias ks="ls -G"
+alias ll="ls -Glah"
 _vimrs() {
-    vim -p $(grep -rl .rs .)
+    nvim -p $(grep -rl .rs .)
 }
 alias vimrs="_vimrs"
 
@@ -54,7 +60,7 @@ alias cdf="cd_fzf"
 vim_fzf() {
     location=$(fzf)
     if [ ! -z "$location" ]; then
-        vim $location
+        nvim $location
     fi
 }
 alias vimf="vim_fzf"
@@ -64,10 +70,10 @@ cdvim_fzf() {
     location=$(fzf)
     if [ ! -z "$location" ]; then
         cd $(dirname $location)
-        vim $(basename $location)
+        nvim $(basename $location)
     fi
 }
-alias cdvimf="cdvim_fzf"
+alias cdv="cdvim_fzf"
 
 # git aliases
 
@@ -76,7 +82,7 @@ alias bgit="git branch"
 alias dgit="git diff"
 
 # taken from https://coderwall.com/p/euwpig/a-better-git-log
-alias pgit="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
+alias pgit="git log --graph -n 10 --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
 
 alias restart_mouse="modprobe -r psmouse && modprobe psmouse"
 alias max_fan="echo level 7 > /proc/acpi/ibm/fan"
@@ -114,3 +120,7 @@ lock() {
     slock systemctl suspend -i
 }
 export -f lock
+
+if [ -f $(brew --prefix)/etc/bash_completion ]; then
+    . $(brew --prefix)/etc/bash_completion
+fi

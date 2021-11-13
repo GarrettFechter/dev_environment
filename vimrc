@@ -5,9 +5,43 @@ set hidden
 call plug#begin('~/.vim/plugged')
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-Plug 'prabirshrestha/vim-lsp'
+Plug 'tpope/vim-obsession'
 Plug 'mattn/vim-lsp-settings'
+Plug 'prabirshrestha/vim-lsp'
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
+Plug 'github/copilot.vim'
+
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'alexghergh/nvim-tmux-navigation'
 call plug#end()
+
+" lsp server
+nnoremap <C-p> :LspPeekDefinition<CR>
+nnoremap <C-]> :LspDefinition<CR>
+
+function! GoToDefinition()
+    redir => found
+    silent execute 'LspDefinition'
+    silent execute 'sleep 400m'
+    redir END
+
+    if stridx(found, "No definition") > -1
+        call feedkeys(":tag ")
+        call feedkeys("\<C-R>")
+        call feedkeys("\<C-W>")
+        call feedkeys("\<CR>")
+    endif
+endfunction
+"nnoremap <C-]> :call GoToDefinition()<CR>
+
+" autosave
+" autocmd TextChanged,TextChangedI <buffer> silent write
+
+" asyncomplete
+inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr> <cr>    pumvisible() ? asyncomplete#close_popup() : "\<cr>"
 
 command! -bang -nargs=* Rg
             \ call fzf#vim#grep(
@@ -50,6 +84,10 @@ set cursorline " highlight cursor line
 " set t_ti= t_te=
 set scrolloff=5 " context to keep when going up/down
 
+" settings from python dev
+set clipboard=unnamed " use system clipboard (PRIMARY) by default
+set cc=80
+
 syntax on
 syntax enable
 set list
@@ -77,8 +115,8 @@ function! InsertTabWrapper()
         return "\<tab>"
     endif
 endfunction
-noremap <expr> <tab> InsertTabWrapper()
-inoremap <s-tab> <c-n>
+"noremap <expr> <tab> InsertTabWrapper()
+"inoremap <s-tab> <c-n>
 
 " Jump to last cursor position unless it's invalid or in an event handler
 autocmd BufReadPost *
@@ -88,6 +126,8 @@ autocmd BufReadPost *
 
 set foldmethod=syntax
 au BufRead * normal zR
+
+hi StatusLine ctermfg=255 ctermbg=0
 
 "augroup remember_folds
 "   autocmd!

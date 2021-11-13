@@ -16,3 +16,4 @@ set keymap vi-insert
     "k": self-insert
 
 set show-all-if-ambiguous on
+set show-mode-in-prompt on
