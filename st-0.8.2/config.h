@@ -5,8 +5,13 @@
  *
  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
  */
-static char *font = "Liberation Mono:pixelsize=18:antialias=true:autohint=true";
+// static char *font = "Liberation Mono:pixelsize=18:antialias=true:autohint=true";
+static char *font = "DejaVuSansMono:pixelsize=20:antialias=true:autohint=true";
 static int borderpx = 2;
+
+/* Kerning / character bounding-box multipliers */
+static float cwscale = .9;
+static float chscale = 1.0;
 
 /*
  * What program is execed by st depends of these precedence rules:
@@ -22,10 +27,6 @@ char *stty_args = "stty raw pass8 nl -echo -iexten -cstopb 38400";
 
 /* identification sequence returned in DA and DECID */
 char *vtiden = "\033[?6c";
-
-/* Kerning / character bounding-box multipliers */
-static float cwscale = 1.0;
-static float chscale = 1.0;
 
 /*
  * word delimiter string
